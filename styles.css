@@ -1,0 +1,11 @@
+/* Added some styling to give a better display of the non available drip sections.
+ * This should actually be in the theme.
+ */
+
+div.dripsection_info {
+    color: #CCC;
+}
+
+div.course-content ul.drip li.section.hidden h3.sectionname span a {
+    color: #CCC;
+}
