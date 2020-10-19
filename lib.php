@@ -115,15 +115,11 @@ class format_drip extends format_base {
             $sectionno = $section;
         }
         if ($sectionno !== null) {
-            if ($sr !== null) {
-                if ($sr) {
-                    $usercoursedisplay = COURSE_DISPLAY_MULTIPAGE;
-                    $sectionno = $sr;
-                } else {
-                    $usercoursedisplay = COURSE_DISPLAY_SINGLEPAGE;
-                }
+            if ($sr) {
+                $usercoursedisplay = COURSE_DISPLAY_MULTIPAGE;
+                $sectionno = $sr;
             } else {
-                $usercoursedisplay = $course->coursedisplay;
+                $usercoursedisplay = COURSE_DISPLAY_SINGLEPAGE;
             }
             if ($sectionno != 0 && $usercoursedisplay == COURSE_DISPLAY_MULTIPAGE) {
                 $url->param('section', $sectionno);
@@ -223,7 +219,6 @@ class format_drip extends format_base {
      * Definitions of the additional options that this course format uses for course
      *
      * Drip format uses the following options:
-     * - coursedisplay
      * - driptype
      * - showhiddendripsections
      *
@@ -236,10 +231,6 @@ class format_drip extends format_base {
         if ($courseformatoptions === false) {
             $courseconfig = get_config('moodlecourse');
             $courseformatoptions = array(
-                'coursedisplay' => array(
-                    'default' => $courseconfig->coursedisplay,
-                    'type' => PARAM_INT,
-                ),
                 'driptype' => array(
                     'default' => DRIPTYPE_DAYS,
                     'type' => PARAM_TEXT,
@@ -250,20 +241,8 @@ class format_drip extends format_base {
                 ),
             );
         }
-        if ($foreditform && !isset($courseformatoptions['coursedisplay']['label'])) {
+        if ($foreditform) {
             $courseformatoptionsedit = array(
-                'coursedisplay' => array(
-                    'label' => new lang_string('coursedisplay'),
-                    'element_type' => 'select',
-                    'element_attributes' => array(
-                        array(
-                            COURSE_DISPLAY_SINGLEPAGE => new lang_string('coursedisplay_single'),
-                            COURSE_DISPLAY_MULTIPAGE => new lang_string('coursedisplay_multi')
-                        )
-                    ),
-                    'help' => 'coursedisplay',
-                    'help_component' => 'moodle',
-                ),
                 'driptype' => array(
                     'label' => new lang_string('driptype', 'format_drip'),
                     'help' => 'driptype',
@@ -330,9 +309,6 @@ class format_drip extends format_base {
 
     /**
      * Updates format options for a course
-     *
-     * In case if course format was changed to 'drip', we try to copy option
-     * 'coursedisplay' from the previous format.
      *
      * @param stdClass|array $data return value from {@link moodleform::get_data()} or array with data
      * @param stdClass $oldcourse if this function is called from {@link update_course()}

@@ -225,7 +225,7 @@ class format_drip_renderer extends format_section_renderer_base {
 
             $showdripdaysinfo = (!$cancaccessformatsection && !empty($course->showhiddendripsections));
 
-            if (!$this->page->user_is_editing() && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
+            if (!$this->page->user_is_editing()) {
                 // Display section summary only.
                 echo $this->section_summary($thissection, $course, null);
             } else {
