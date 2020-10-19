@@ -52,5 +52,5 @@ $string['section0name'] = 'General';
 $string['sectionname'] = 'Drip topic';
 $string['sectionname_form'] = 'Drip topic {$a} days';
 $string['showfromothers'] = 'Show driptopic';
-$string['showhiddendripsections'] = 'Show hidden drip sections';
+$string['showhiddendripsections'] = 'Show unavailable drip sections';
 $string['showhiddendripsections_help'] = 'Whether to show the drip sections that are not available to the user yet. Users get to see when the drip section will open.';
