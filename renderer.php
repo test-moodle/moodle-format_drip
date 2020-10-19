@@ -212,8 +212,7 @@ class format_drip_renderer extends format_section_renderer_base {
             // but there is some available info text which explains the reason & should display,
             // OR it is hidden but the course has a setting to display hidden sections as unavilable.
             $showsection = $thissection->uservisible ||
-                    ($thissection->visible && !$thissection->available && !empty($thissection->availableinfo)) ||
-                    (!$thissection->visible && !$course->hiddensections);
+                    ($thissection->visible && !$thissection->available && !empty($thissection->availableinfo));
             if (!$showsection) {
                 continue;
             }
@@ -530,8 +529,7 @@ class format_drip_renderer extends format_section_renderer_base {
     protected function get_nav_links($course, $sections, $sectionno) {
         // FIXME: This is really evil and should by using the navigation API.
         $course = course_get_format($course)->get_course();
-        $canviewhidden = has_capability('moodle/course:viewhiddensections', context_course::instance($course->id))
-            or !$course->hiddensections;
+        $canviewhidden = has_capability('moodle/course:viewhiddensections', context_course::instance($course->id));
 
         $format = course_get_format($course);
         $driptype = $format->get_course_driptype_with_default($course);
@@ -603,7 +601,7 @@ class format_drip_renderer extends format_section_renderer_base {
 
         while ($section <= $numsections) {
             $thissection = $modinfo->get_section_info($section);
-            $showsection = $thissection->uservisible or !$course->hiddensections;
+            $showsection = $thissection->uservisible;
             $cancaccessformatsection = $format->can_access_section($thissection, $enrolstart);
 
             if (($showsection) && ($section != $displaysection) &&

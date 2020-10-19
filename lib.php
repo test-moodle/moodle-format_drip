@@ -224,7 +224,8 @@ class format_drip extends format_base {
      *
      * Drip format uses the following options:
      * - coursedisplay
-     * - hiddensections
+     * - driptype
+     * - showhiddendripsections
      *
      * @param bool $foreditform
      * @return array of options
@@ -235,10 +236,6 @@ class format_drip extends format_base {
         if ($courseformatoptions === false) {
             $courseconfig = get_config('moodlecourse');
             $courseformatoptions = array(
-                'hiddensections' => array(
-                    'default' => $courseconfig->hiddensections,
-                    'type' => PARAM_INT,
-                ),
                 'coursedisplay' => array(
                     'default' => $courseconfig->coursedisplay,
                     'type' => PARAM_INT,
@@ -255,18 +252,6 @@ class format_drip extends format_base {
         }
         if ($foreditform && !isset($courseformatoptions['coursedisplay']['label'])) {
             $courseformatoptionsedit = array(
-                'hiddensections' => array(
-                    'label' => new lang_string('hiddensections'),
-                    'help' => 'hiddensections',
-                    'help_component' => 'moodle',
-                    'element_type' => 'select',
-                    'element_attributes' => array(
-                        array(
-                            0 => new lang_string('hiddensectionscollapsed'),
-                            1 => new lang_string('hiddensectionsinvisible')
-                        )
-                    ),
-                ),
                 'coursedisplay' => array(
                     'label' => new lang_string('coursedisplay'),
                     'element_type' => 'select',
@@ -346,8 +331,8 @@ class format_drip extends format_base {
     /**
      * Updates format options for a course
      *
-     * In case if course format was changed to 'drip', we try to copy options
-     * 'coursedisplay' and 'hiddensections' from the previous format.
+     * In case if course format was changed to 'drip', we try to copy option
+     * 'coursedisplay' from the previous format.
      *
      * @param stdClass|array $data return value from {@link moodleform::get_data()} or array with data
      * @param stdClass $oldcourse if this function is called from {@link update_course()}
