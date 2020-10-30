@@ -225,19 +225,14 @@ class format_drip_renderer extends format_section_renderer_base {
 
             $showdripdaysinfo = (!$cancaccessformatsection && !empty($course->showhiddendripsections));
 
-            if (!$this->page->user_is_editing()) {
-                // Display section summary only.
-                echo $this->section_summary($thissection, $course, null);
-            } else {
-                echo $this->section_header($thissection, $course, false, 0);
-                if ($showdripdaysinfo) {
-                    echo $this->section_dripinfo($thissection, $course);
-                } else if ($thissection->uservisible) {
-                    echo $this->courserenderer->course_section_cm_list($course, $thissection, 0);
-                    echo $this->courserenderer->course_section_add_cm_control($course, $section, 0);
-                }
-                echo $this->section_footer();
+            echo $this->section_header($thissection, $course, false, 0);
+            if ($showdripdaysinfo) {
+                echo $this->section_dripinfo($thissection, $course);
+            } else if ($thissection->uservisible) {
+                echo $this->courserenderer->course_section_cm_list($course, $thissection, 0);
+                echo $this->courserenderer->course_section_add_cm_control($course, $section, 0);
             }
+            echo $this->section_footer();
         }
 
         if ($this->page->user_is_editing() and has_capability('moodle/course:update', $context)) {
