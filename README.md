@@ -16,7 +16,7 @@ The Drip Course Format for Moodle is designed to release course content progress
 
 ## Installation:
 1. Place the plugin in `/course/format/drip/`
-2. Visit the Moodle notifications page to install.
+2. Log in into your platform as an administrator and confirm the plugin installation.
 
 ## Configuration:
 - Set drip intervals per course.
